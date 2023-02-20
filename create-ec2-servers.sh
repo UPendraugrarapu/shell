@@ -3,7 +3,7 @@
 ##### Change these values ###
 ZONE_ID="Z10169603GCPS6PZET2FX"
 DOMAIN="devopsb71.tech"   
-SG_NAME="allow-all"
+SG_NAME="Allow-all"
 #############################
 
 
