@@ -1,2 +1,2 @@
 ####
-##$
+yum install nginx -y
