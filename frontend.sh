@@ -15,8 +15,7 @@ echo -e "\e[36m unzip the code file \e[0m"
 unzip /tmp/frontend.zip
 
 echo -e "\e[36m copying the code to default location \e[0m"
-pwd
-ls-l
+
 cp $(code_dir)configs/nginx-roboshop.conf /etc/nginx/defualt.d/roboshop.conf
 
 echo -e "\e[36m enable and restart nginx \e[0m"
