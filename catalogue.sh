@@ -15,19 +15,19 @@ mkdir /app  &>>${log_file}
 print_head "Removing unwanted files"
 rm -rf /app/* &>>${log_file}
 
-print_head "Download catalogue service code"
+print_head "Download app content"
 curl -L -o /tmp/catalogue.zip https://roboshop-artifacts.s3.amazonaws.com/catalogue.zip  &>>${log_file}
 
-print_head "Change directory & unzip the code file"
+print_head "Change directory & extract the app content file"
 cd /app &>>${log_file}
 unzip /tmp/catalogue.zip &>>${log_file}
 
-print_head "change directory & install dependencies"
+print_head "change directory & install nodejs dependencies"
 cd /app &>>${log_file}
 npm install &>>${log_file}
 
-print_head "copy the catalogue service file"
-cp configs/catalogue.service /etc/systemd/system/catalogue.service &>>${log_file}
+print_head "copy the systemd service file"
+cp ${code_dir}/configs/catalogue.service /etc/systemd/system/catalogue.service &>>${log_file}
 
 print_head "Reload the service"
 systemctl daemon-reload &>>${log_file}
@@ -37,7 +37,7 @@ systemctl enable catalogue &>>${log_file}
 systemctl start catalogue &>>${log_file}
 
 print_head "copy mongodb repo file server"
-cp configs/mongodb.repo /etc/yum.repos.d/mongodb.repo &>>${log_file}
+cp ${code_dir}/configs/mongodb.repo /etc/yum.repos.d/mongodb.repo &>>${log_file}
 
 print_head "install mongodb"
 yum install mongodb-org-shell -y &>>${log_file}
