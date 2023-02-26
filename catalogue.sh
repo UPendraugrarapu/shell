@@ -16,8 +16,11 @@ if [ &? -ne 0 ] ; then
 status_check $?
 
 print_head "Create directory"
-mkdir /app  &>>${log_file}
+if [ ! -d /app ] ; then
+ mkdir /app  &>>${log_file}
+ fi
 status_check $?
+
 print_head "Removing unwanted files"
 rm -rf /app/* &>>${log_file}
 status_check $?
