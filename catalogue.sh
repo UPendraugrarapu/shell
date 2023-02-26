@@ -3,12 +3,18 @@ source common.sh
 print_head "Downloading the nodejs repo files"
 curl -sL https://rpm.nodesource.com/setup_lts.x | bash &>>${log_file}
 status_check $?
+
 print_head "Installing nodejs"
 yum install nodejs -y &>>${log_file}
 status_check $?
+
 print_head "Add user"
-useradd roboshop &>>${log_file}
+id roboshop &>>${log_file}
+if [ &? -ne 0 ] ; then
+ useradd roboshop &>>${log_file}
+ fi
 status_check $?
+
 print_head "Create directory"
 mkdir /app  &>>${log_file}
 status_check $?
