@@ -22,9 +22,14 @@ systemd_setup() {
     print_head "copy the systemd service file"
     cp ${code_dir}/configs/${component}.service /etc/systemd/system/${component}.service &>>${log_file}
     status_check $?
+
+#This sed operation is only for payment service, for other services it will not be any impact
+sed -i -e "s/ROBOSHOP_USER_PASSWORD/${roboshop_app_password}/" /etc/systemd/system/${component}.service &>>${log_file}
+
     print_head "Reload the service"
     systemctl daemon-reload &>>${log_file}
     status_check $?
+
     print_head "Enable and start the service"
     systemctl enable ${component} &>>${log_file}
     systemctl restart ${component} &>>${log_file}
@@ -119,5 +124,23 @@ java() {
 
 #systemD function
     systemd_setup
+
+}
+
+pyhton() {
+    print_head "Installing python"
+    yum install python36 gcc python3-devel -y &>>${log_file}
+    status_check $?
+
+    app_prereq_setup
+
+    print_head "Download dependencies "
+    pip3.6 install -r requirements.txt &>>${log_file}   
+    status_check $?
+
+
+#systemD function
+    systemd_setup
+
 
 }
