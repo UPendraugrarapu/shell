@@ -10,6 +10,10 @@ print_head "Disabling default mysql "
 dnf module disable mysql -y &>>${log_file}
 status_check $?
 
+print_head "Copy mysql repo file"
+cp ${code_dir}/configs/mysql.repo /etc/yum.repos.d/mysql.repo &>>${log_file}
+status_check $?
+
 print_head "Installing mysql server"
 yum install mysql-community-server -y &>>${log_file}
 status_check $?
@@ -19,7 +23,10 @@ systemctl enable mysqld &>>${log_file}
 systemctl start mysqld  &>>${log_file}
 status_check $?
 
-print_head "Change default root password"
+print_head "Set root password"
+echo show databases | mysql -uroot -p${mysql_root_password} &>>${log_file}
+if [ $? -ne 0 ] ; then
 mysql_secure_installation --set-root-pass ${mysql_root_password} &>>${log_file}
+fi
 status_check $?
 
