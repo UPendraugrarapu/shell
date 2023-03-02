@@ -1,5 +1,7 @@
 source common.sh
 
+component=dispatch
+
 print_head "Install golang"
 yum install golang -y &>>${log_file}
 system_check $?
