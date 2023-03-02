@@ -60,30 +60,31 @@ schema_setup() {
 }
 
 app_prereq_setup() {
-    print_head "Add user"
-    id roboshop &>>${log_file}
-    if [ $? -ne 0 ]; then
-        useradd roboshop &>>${log_file}
-    fi
-    status_check $?
+  print_head "Create Roboshop User"
+  id roboshop  &>>${log_file}
+  if [ $? -ne 0 ]; then
+    useradd roboshop &>>${log_file}
+  fi
+  status_check $?
 
-    print_head "Create directory"
-    if [ ! -d /app ]; then
-        mkdir /app &>>${log_file}
-    fi
-    status_check $?
+  print_head "Create Application Directory"
+  if [ ! -d /app ]; then
+    mkdir /app &>>${log_file}
+  fi
+  status_check $?
 
-    print_head "Removing old files"
-    rm -rf /app/* &>>${log_file}
-    status_check $?
-    print_head "Download app content"
-    curl -L -o /tmp/${component}.zip https://roboshop-artifacts.s3.amazonaws.com/${component}.zip &>>${log_file}
-    status_check $?
-    cd /app
-    
-    print_head "Extract the app content file"
-    unzip /tmp/${component}.zip &>>${log_file}
-    status_check $?
+  print_head "Delete Old Content"
+  rm -rf /app/* &>>${log_file}
+  status_check $?
+
+  print_head "Downloading App Content"
+  curl -L -o /tmp/${component}.zip https://roboshop-artifacts.s3.amazonaws.com/${component}.zip &>>${log_file}
+  status_check $?
+  cd /app
+
+  print_head "Extracting App Content"
+  unzip /tmp/${component}.zip &>>${log_file}
+  status_check $?
 }
 
 nodejs() {
