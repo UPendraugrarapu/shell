@@ -127,7 +127,7 @@ java() {
 
 }
 
-pyhton() {
+python() {
     print_head "Installing python"
     yum install python36 gcc python3-devel -y &>>${log_file}
     status_check $?
