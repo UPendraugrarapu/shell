@@ -79,8 +79,9 @@ app_prereq_setup() {
     print_head "Download app content"
     curl -L -o /tmp/${component}.zip https://roboshop-artifacts.s3.amazonaws.com/${component}.zip &>>${log_file}
     status_check $?
-    print_head "Change directory & extract the app content file"
-    cd /app &>>${log_file}
+    cd /app
+    
+    print_head "Extract the app content file"
     unzip /tmp/${component}.zip &>>${log_file}
     status_check $?
 }
