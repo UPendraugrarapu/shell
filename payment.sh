@@ -7,6 +7,6 @@ if [ -z "${roboshop_app_password}" ]; then
 fi
 #proivde 'roboshop123' password at the time of executing bash payement.sh
 
-component=payement
+component=payment
 
 python
