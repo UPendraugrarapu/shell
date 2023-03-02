@@ -37,7 +37,7 @@ sed -i -e "s/ROBOSHOP_USER_PASSWORD/${roboshop_app_password}/" /etc/systemd/syst
 }
 
 schema_setup() {
-    if [ ${schema_type} == "mongo" ]; then
+    if [ "${schema_type}" == "mongo" ]; then
         print_head "copy mongodb repo file server"
         cp ${code_dir}/configs/mongodb.repo /etc/yum.repos.d/mongodb.repo &>>${log_file}
         status_check $?
@@ -47,7 +47,7 @@ schema_setup() {
         print_head "Load the schema"
         mongo --host mongodb.devopsb71.tech </app/schema/${component}.js &>>${log_file}
         status_check $?
-    elif [ ${schema_type} == "mysql" ]; then
+    elif [ "${schema_type} "== "mysql" ]; then
         print_head "Install mysql client"
         yum install mysql -y &>>${log_file}
         status_check $?
